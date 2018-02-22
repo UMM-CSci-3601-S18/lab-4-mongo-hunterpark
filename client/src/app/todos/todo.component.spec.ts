@@ -56,15 +56,15 @@ describe("Todo component", () => {
         });
     }));
 
-    it("can retrieve Pat by ID", () => {
-        todoComponent.setId("pat_id");
+    it("can retrieve Hunter by ID", () => {
+        todoComponent.setId("Hunter_id");
         expect(todoComponent.todo).toBeDefined();
-        expect(todoComponent.todo.owner).toBe("Pat");
-        expect(todoComponent.todo.category).toBe("pat@something.com");
+        expect(todoComponent.todo.owner).toBe("Hunter");
+        expect(todoComponent.todo.category).toBe("CSCI 3601");
     });
 
-    it("returns undefined for Santa", () => {
-        todoComponent.setId("Santa");
+    it("returns undefined for KK", () => {
+        todoComponent.setId("Kristan");
         expect(todoComponent.todo).not.toBeDefined();
     });
 
