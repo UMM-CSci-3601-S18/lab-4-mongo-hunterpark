@@ -18,6 +18,7 @@ import {APP_BASE_HREF} from '@angular/common';
 
 import {CustomModule} from './custom.module';
 import {AddUserComponent} from './users/add-user.component';
+import {AddTodoComponent} from "./todos/add-todo.component";
 
 
 
@@ -37,6 +38,7 @@ import {AddUserComponent} from './users/add-user.component';
         TodoComponent,
         UserComponent,
         AddUserComponent,
+        AddTodoComponent
 
     ],
     providers: [
@@ -50,6 +52,7 @@ import {AddUserComponent} from './users/add-user.component';
     ],
     entryComponents: [
         AddUserComponent,
+        AddTodoComponent,
     ],
     bootstrap: [AppComponent]
 })
