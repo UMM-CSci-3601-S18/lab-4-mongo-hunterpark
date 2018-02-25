@@ -2,10 +2,8 @@ package umm3601.todo;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
-import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
-
 
 public class TodoRequestHandler {
     private final TodoController todoController;
@@ -67,7 +65,7 @@ public class TodoRequestHandler {
      * @param res the HTTP response
      * @return a boolean as whether the todo was added successfully or not
      */
-    public String addNewTodo(Request req, Response res)
+    public boolean addNewTodo(Request req, Response res)
     {
 
         res.type("application/json");
@@ -85,26 +83,26 @@ public class TodoRequestHandler {
                     String body = dbO.getString("body");
                     String category = dbO.getString("category");
 
-                    System.err.println("Adding new todo [owner=" + owner + ", status=" + status + " body=" + body + " category=" + category + ']');
-                    return todoController.addNewTodo(owner, status, body, category).toString();
+                    System.err.println("Adding new todo [owner=" + owner + ", category=" + category + " body=" + body + " status=" + status + ']');
+                    return todoController.addNewTodo(owner, category, body, status);
                 }
                 catch(NullPointerException e)
                 {
                     System.err.println("A value was malformed or omitted, new todo request failed.");
-                    return null;
+                    return false;
                 }
 
             }
             else
             {
                 System.err.println("Expected BasicDBObject, received " + o.getClass());
-                return null;
+                return false;
             }
         }
         catch(RuntimeException ree)
         {
             ree.printStackTrace();
-            return null;
+            return false;
         }
     }
 }
