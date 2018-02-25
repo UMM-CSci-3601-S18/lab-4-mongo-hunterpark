@@ -41,7 +41,7 @@ public class TodoControllerSpec {
         testTodos.add(Document.parse("{\n" +
             "                    owner: \"Sunjae\",\n" +
             "                    status: false,\n" +
-            "                    body: \"doing homework\",\n" +
+            "                    body: \"walks to school\",\n" +
             "                    category: \"homework\"\n" +
             "                }"));
         testTodos.add(Document.parse("{\n" +
@@ -179,16 +179,16 @@ public class TodoControllerSpec {
         Map<String, String[]> argMap = new HashMap<>();
         //Mongo in TodoController is doing a regex search so can just take a Java Reg. Expression
         //This will search the bodies containing "ea"
-        argMap.put("body", new String[] { "o" });
+        argMap.put("body", new String[] { "oo" });
         String jsonResult = todoController.getTodos(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
-        assertEquals("Should be 2 todos", 2, docs.size());
+        assertEquals("Should be 2 todo", 2, docs.size());
         List<String> owner = docs
             .stream()
             .map(TodoControllerSpec::getOwner)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedOwner = Arrays.asList("Nic", "Sunjae");
+        List<String> expectedOwner = Arrays.asList("Nic","Sunjae");
         assertEquals("Owners should match", expectedOwner, owner);
 
     }
