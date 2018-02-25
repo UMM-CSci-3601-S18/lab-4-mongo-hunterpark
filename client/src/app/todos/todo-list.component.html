@@ -40,8 +40,9 @@
                             <mat-panel-title matTooltip="category: {{todo.category}}" >{{todo.owner}}</mat-panel-title>
 
                         </mat-expansion-panel-header>
-                        <mat-panel-description >Works for {{todo.body}}</mat-panel-description>
                         <mat-panel-description>Status: {{todo.status}} </mat-panel-description>
+                        <mat-panel-description >{{todo.body}}</mat-panel-description>
+                        <mat-panel-description>{{todo.category}} </mat-panel-description>
                     </mat-expansion-panel>
                 </mat-accordion>
                 <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
