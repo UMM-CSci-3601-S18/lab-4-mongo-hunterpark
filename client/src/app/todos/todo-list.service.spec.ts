@@ -84,7 +84,7 @@ describe('Todo list service: ', () => {
     });
 
     it('getTodos(todoBody) adds appropriate param string to called URL', () => {
-        todoListService.getTodos('c').subscribe(
+        todoListService.getTodos('m').subscribe(
             todos => expect(todos).toEqual(mTodos)
         );
 
@@ -96,14 +96,14 @@ describe('Todo list service: ', () => {
     it('filterByCompany(todoBody) deals appropriately with a URL that already had a body', () => {
         currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?body=f&something=k&';
         todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-        todoListService.filterByBody('c');
+        todoListService.filterByBody('m');
         expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&body=m&');
     });
 
     it('filterByCompany(todoBody) deals appropriately with a URL that already had some filtering, but no body', () => {
         currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?something=k&';
         todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-        todoListService.filterByBody('c');
+        todoListService.filterByBody('m');
         expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&body=m&');
     });
 
