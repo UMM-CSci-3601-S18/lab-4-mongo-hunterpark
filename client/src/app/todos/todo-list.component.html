@@ -10,11 +10,6 @@
             <mat-card-title id="todo-list-title">Todos</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-
-
-                <!--<mat-form-field>
-                  <input matInput id="todoStatus" #input placeholder="Filter by status" (input)="todoStatus = $event.target.value">
-                </mat-form-field>-->
                 <mat-card>
                     <mat-card-content>
                 <span id="ownerInput">
@@ -28,7 +23,6 @@
                 </span>
 
                         <br>
-
                         <mat-form-field>
                             <input matInput id="todoBody" #input placeholder="Filter by body"
                                    [(ngModel)]="todoBody">
@@ -36,7 +30,6 @@
                                 <mat-icon>close</mat-icon>
                             </button>
                         </mat-form-field>
-
                         <br>
 
                         <span id="statusDiv">Filter by status:<br>
@@ -48,7 +41,6 @@
             </span>
 
                         <br>
-
                         <mat-select matInput [(ngModel)]="todoCategory" placeholder="Select a category">
                             <mat-option>All</mat-option>
                             <mat-option value="groceries">Groceries </mat-option>
@@ -58,8 +50,6 @@
                         </mat-select>
                     </mat-card-content>
                 </mat-card>
-
-
                 <br>
 
                 <mat-accordion *ngIf="todos; else todosError">
