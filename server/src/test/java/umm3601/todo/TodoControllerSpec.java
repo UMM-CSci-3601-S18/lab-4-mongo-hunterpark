@@ -124,7 +124,7 @@ public class TodoControllerSpec {
     }
 
     @Test
-    public void getJohnByID() {
+    public void getSamByID() {
         String jsonResult = todoController.getTodo(samId.toHexString());
         Document john = Document.parse(jsonResult);
         assertEquals("Owner should match", "Sam", john.get("owner"));
