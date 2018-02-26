@@ -9,35 +9,35 @@ describe('Todo list service: ', () => {
     // A small collection of test todos
     const testTodos: Todo[] = [
         {
-            _id: 'Hunter_id',
+            _id: 'hunter_id',
             owner: 'Hunter',
             status: true,
-            body: 'In class',
-            category: 'CSCI 3601'
+            category: 'in school',
+            body: 'U of M morris'
         },
         {
-            _id: 'Sungjae_id',
-            owner: 'Sungjae',
-            status:false,
-            body: 'Dungeon',
-            category: 'CSCI 3601'
+            _id: 'sunjae_id',
+            owner: 'Sunjae',
+            status: false,
+            category: 'school',
+            body: 'morris'
         },
         {
-            _id: 'Nic_id',
+            _id: 'nic_id',
             owner: 'Nic',
             status: true,
-            body: 'In class',
-            category: 'IS 1091'
+            category: 'teaches at school',
+            body: 'U of M morris'
         }
     ];
     const mTodos: Todo[] = testTodos.filter(todo =>
-        todo.body.toLowerCase().indexOf('c') !== -1
+        todo.owner.toLowerCase().indexOf('a') !== -1
     );
 
-    // We will need some url information from the todoListService to meaningfully test body filtering;
+    // We will need some url information from the userListService to meaningfully test company filtering;
     // https://stackoverflow.com/questions/35987055/how-to-write-unit-testing-for-angular-2-typescript-for-private-methods-with-ja
     let todoListService: TodoListService;
-    let currentlyImpossibleToGenerateSearchTodoUrl: string;
+    let currentlyImpossibleToGenerateSearchUserUrl: string;
 
     // These are used to mock the HTTP requests so that we (a) don't have to
     // have the server running and (b) we can check exactly which HTTP
@@ -63,11 +63,11 @@ describe('Todo list service: ', () => {
     });
 
     it('getTodos() calls api/todos', () => {
-        // Assert that the todos we get from this call to getTodos()
+        // Assert that the users we get from this call to getTodos()
         // should be our set of test todos. Because we're subscribing
         // to the result of getTodos(), this won't actually get
         // checked until the mocked HTTP request "returns" a response.
-        // This happens when we call req.flush(testTodos) a few lines
+        // This happens when we call req.flush(testUsers) a few lines
         // down.
         todoListService.getTodos().subscribe(
             todos => expect(todos).toBe(testTodos)
@@ -83,35 +83,14 @@ describe('Todo list service: ', () => {
         req.flush(testTodos);
     });
 
-    it('getTodos(todoBody) adds appropriate param string to called URL', () => {
-        todoListService.getTodos('m').subscribe(
+    it('getTodos(todoStatus or todoOwner) adds appropriate param string to called URL', () => {
+        todoListService.getTodos('f','e').subscribe(
             todos => expect(todos).toEqual(mTodos)
         );
 
-        const req = httpTestingController.expectOne(todoListService.baseUrl + '?body=m&');
+        const req = httpTestingController.expectOne(todoListService.baseUrl + '?status=f&owner=e');
         expect(req.request.method).toEqual('GET');
         req.flush(mTodos);
-    });
-
-    it('filterByCompany(todoBody) deals appropriately with a URL that already had a body', () => {
-        currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?body=f&something=k&';
-        todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-        todoListService.filterByBody('m');
-        expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&body=m&');
-    });
-
-    it('filterByCompany(todoBody) deals appropriately with a URL that already had some filtering, but no body', () => {
-        currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?something=k&';
-        todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-        todoListService.filterByBody('m');
-        expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '?something=k&body=m&');
-    });
-
-    it('filterByCompany(todoBody) deals appropriately with a URL has the keyword body, but nothing after the =', () => {
-        currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?body=&';
-        todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
-        todoListService.filterByBody('');
-        expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '');
     });
 
     it('getTodoById() calls api/todos/id', () => {
@@ -128,24 +107,24 @@ describe('Todo list service: ', () => {
     });
 
     it('adding a todo calls api/todos/new', () => {
-        const jesse_id = { '$oid': 'jesse_id' };
+        const kk_id = { '$oid': 'kk_id' };
         const newTodo: Todo = {
-            _id: '',
-            owner: 'Jesse',
+            _id: 'kk_id',
+            owner: 'KK',
             status: true,
-            body: 'Smithsonian',
-            category: 'CSCI 1201'
+            category: 'teaches at school',
+            body: 'morris'
         };
 
         todoListService.addNewTodo(newTodo).subscribe(
             id => {
-                expect(id).toBe(jesse_id);
+                expect(id).toBe(kk_id);
             }
         );
 
         const expectedUrl: string = todoListService.baseUrl + '/new';
         const req = httpTestingController.expectOne(expectedUrl);
         expect(req.request.method).toEqual('POST');
-        req.flush(jesse_id);
+        req.flush(kk_id);
     });
 });
