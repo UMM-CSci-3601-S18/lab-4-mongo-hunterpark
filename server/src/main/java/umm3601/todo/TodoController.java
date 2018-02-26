@@ -1,14 +1,22 @@
 package umm3601.todo;
 
 import com.google.gson.Gson;
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Accumulators;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,14 +34,14 @@ public class TodoController {
     }
 
     public String getTodo(String id) {
-        FindIterable<Document> jsonUsers
+        FindIterable<Document> jsonTodos
             = todoCollection
             .find(eq("_id", new ObjectId(id)));
 
-        Iterator<Document> iterator = jsonUsers.iterator();
+        Iterator<Document> iterator = jsonTodos.iterator();
         if (iterator.hasNext()) {
-            Document user = iterator.next();
-            return user.toJson();
+            Document todo = iterator.next();
+            return todo.toJson();
         } else {
             // We didn't find the desired todo
             return null;
@@ -74,21 +82,21 @@ public class TodoController {
         }
 
         //FindIterable comes from mongo, Document comes from Gson
-        FindIterable<Document> matchingUsers = todoCollection.find(filterDoc);
+        FindIterable<Document> matchingTodos = todoCollection.find(filterDoc);
 
-        return JSON.serialize(matchingUsers);
+        return JSON.serialize(matchingTodos);
     }
 
     public boolean addNewTodo(String owner, String category, String body, Boolean status) {
 
-        Document newUser = new Document();
-        newUser.append("owner", owner);
-        newUser.append("category", category);
-        newUser.append("body", body);
-        newUser.append("status", status);
+        Document newTodo = new Document();
+        newTodo.append("owner", owner);
+        newTodo.append("category", category);
+        newTodo.append("body", body);
+        newTodo.append("status", status);
 
         try {
-            todoCollection.insertOne(newUser);
+            todoCollection.insertOne(newTodo);
         }
         catch(MongoException me)
         {
@@ -97,6 +105,33 @@ public class TodoController {
         }
 
         return true;
+    }
+
+    public String getTodoSummary() {
+
+        //get number of todos complete for each owner
+        AggregateIterable<Document> totalByOwner = todoCollection.aggregate(
+            Arrays.asList(
+                Aggregates.group("$owner", Accumulators.sum("count", 1))
+            )
+        );
+
+        AggregateIterable<Document> doneByOwner = todoCollection.aggregate(
+            Arrays.asList(
+                Aggregates.match(Filters.eq("status", true)),
+                Aggregates.group("$owner", Accumulators.sum("count", 1))
+            )
+        );
+
+        return JSON.serialize(doneByOwner);
+    }
+
+    public static void main(String[] args) {
+        MongoClient mongoClient = new MongoClient();
+        MongoDatabase userDatabase = mongoClient.getDatabase("dev");
+        TodoController todoController = new TodoController(userDatabase);
+
+        todoController.getTodoSummary();
     }
 
 }

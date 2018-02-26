@@ -4,10 +4,10 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import spark.Request;
 import spark.Response;
-import umm3601.user.UserController;
-import umm3601.user.UserRequestHandler;
 import umm3601.todo.TodoController;
 import umm3601.todo.TodoRequestHandler;
+import umm3601.user.UserController;
+import umm3601.user.UserRequestHandler;
 
 import java.io.IOException;
 
@@ -19,7 +19,6 @@ public class Server {
     private static final String userDatabaseName = "dev";
     private static final int serverPort = 4567;
 
-
     public static void main(String[] args) throws IOException {
 
         MongoClient mongoClient = new MongoClient();
@@ -30,7 +29,6 @@ public class Server {
 
         TodoController todoController = new TodoController(userDatabase);
         TodoRequestHandler todoRequestHandler = new TodoRequestHandler(todoController);
-
 
         //Configure Spark
         port(serverPort);
@@ -74,11 +72,12 @@ public class Server {
         get("api/users/:id", userRequestHandler::getUserJSON);
         post("api/users/new", userRequestHandler::addNewUser);
 
-        //List todos
+        //Todo Endpoints
 
         get("api/todos", todoRequestHandler::getTodos);
         get("api/todos/:id", todoRequestHandler::getTodoJSON);
         post("api/todos/new", todoRequestHandler::addNewTodo);
+        get("api/todoSummary", todoRequestHandler::getTodoSummary);
 
 
         // An example of throwing an unhandled exception so you can see how the

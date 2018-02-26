@@ -41,6 +41,10 @@ public class TodoRequestHandler {
         }
     }
 
+    public String getTodoSummary(Request req, Response res) {
+        return todoController.getTodoSummary();
+    }
+
 
 
     /**Method called from Server when the 'api/todos' endpoint is received.
