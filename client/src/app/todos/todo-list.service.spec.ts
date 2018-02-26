@@ -37,7 +37,6 @@ describe('Todo list service: ', () => {
     // We will need some url information from the userListService to meaningfully test company filtering;
     // https://stackoverflow.com/questions/35987055/how-to-write-unit-testing-for-angular-2-typescript-for-private-methods-with-ja
     let todoListService: TodoListService;
-    let currentlyImpossibleToGenerateSearchUserUrl: string;
 
     // These are used to mock the HTTP requests so that we (a) don't have to
     // have the server running and (b) we can check exactly which HTTP
@@ -84,7 +83,7 @@ describe('Todo list service: ', () => {
     });
 
     it('getTodos(todoStatus or todoOwner) adds appropriate param string to called URL', () => {
-        todoListService.getTodos('f','e').subscribe(
+        todoListService.getTodos('f').subscribe(
             todos => expect(todos).toEqual(mTodos)
         );
 
