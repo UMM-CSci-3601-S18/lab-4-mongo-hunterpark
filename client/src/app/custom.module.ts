@@ -6,12 +6,12 @@ import { CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule /*, any
 import {
     MatListModule, MatButtonModule, MatCardModule, MatIconModule,
     MatInputModule, MatMenuModule, MatSidenavModule, MatToolbarModule,
-    MatExpansionModule, MatTooltipModule, MatDialogModule,
+    MatExpansionModule, MatTooltipModule, MatDialogModule, MatRadioModule, MatSlideToggleModule, MatSelectModule
 } from '@angular/material';
 
 import { FlexLayoutModule, } from '@angular/flex-layout';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const FLEX_LAYOUT_MODULES: any[] = [
@@ -21,6 +21,7 @@ const FLEX_LAYOUT_MODULES: any[] = [
 const ANGULAR_MODULES: any[] = [
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule
 ];
 
 const MATERIAL_MODULES: any[] = [
@@ -35,6 +36,9 @@ const MATERIAL_MODULES: any[] = [
     MatExpansionModule,
     MatTooltipModule,
     MatDialogModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatSelectModule
 ];
 
 const COVALENT_MODULES: any[] = [

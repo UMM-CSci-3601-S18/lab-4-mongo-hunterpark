@@ -4,11 +4,54 @@
 }
 
 #title input {
-    width:16%;
+    width: 16%;
     min-width: 100px;
 }
 
 #list-title {
-    padding-right: 14px;
+    padding-right: 10px;
 }
 
+#todo-list-title {
+    font-size: 50px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.example-container > * {
+    width: 100%;
+}
+
+#check {
+    color: forestgreen;
+}
+
+#exed {
+    color: red;
+}
+
+#todoStatus {
+    padding: 5px;
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: black;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+#complete {
+    color: green;
+}
+
+#incomplete {
+    color: red;
+}
+
+#statusDiv {
+    font-size: small;
+}
