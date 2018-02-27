@@ -25,6 +25,10 @@ export class TodoListComponent implements OnInit {
 
 
 // Inject the TodoListService into this component.
+// That's what happens in the following constructor.
+//
+// We can call upon the service for interacting
+// with the server.
     constructor(public todoListService: TodoListService, public dialog: MatDialog) {
 
     }
