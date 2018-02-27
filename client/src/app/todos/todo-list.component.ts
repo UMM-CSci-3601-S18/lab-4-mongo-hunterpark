@@ -94,7 +94,7 @@ export class TodoListComponent implements OnInit {
         //
         // Subscribe waits until the data is fully downloaded, then
         // performs an action on it (the first lambda)
-        const todos: Observable<Todo[]> = this.todoListService.getTodos(this.todoStatus, this.todoBody);
+        const todos: Observable<Todo[]> = this.todoListService.getTodos(this.todoStatus);
         todos.subscribe(
             returnedTodos => {
                 this.todos = returnedTodos;
@@ -107,7 +107,7 @@ export class TodoListComponent implements OnInit {
     }
 
     loadService(): void {
-        this.todoListService.getTodos(this.todoStatus, this.todoOwner).subscribe(
+        this.todoListService.getTodos(this.todoStatus).subscribe(
             todos => {
                 this.todos = todos;
                 this.filteredTodos = this.todos;
