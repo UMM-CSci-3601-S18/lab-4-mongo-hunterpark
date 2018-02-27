@@ -37,7 +37,6 @@ describe('Todo list service: ', () => {
     // We will need some url information from the todoListService to meaningfully test body filtering;
     // https://stackoverflow.com/questions/35987055/how-to-write-unit-testing-for-angular-2-typescript-for-private-methods-with-ja
     let todoListService: TodoListService;
-    let currentlyImpossibleToGenerateSearchTodoUrl: string;
 
     // These are used to mock the HTTP requests so that we (a) don't have to
     // have the server running and (b) we can check exactly which HTTP
@@ -92,7 +91,7 @@ describe('Todo list service: ', () => {
         expect(req.request.method).toEqual('GET');
         req.flush(mTodos);
     });
-
+    /*
     it('filterByBody(todoBody) deals appropriately with a URL that already had a body', () => {
         currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?body=c&something=k&';
         todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;
@@ -114,6 +113,7 @@ describe('Todo list service: ', () => {
         expect(todoListService['todoUrl']).toEqual(todoListService.baseUrl + '');
     });
 
+    */
     it('getTodoById() calls api/todos/id', () => {
         const targetTodo: Todo = testTodos[1];
         const targetId: string = targetTodo._id;
