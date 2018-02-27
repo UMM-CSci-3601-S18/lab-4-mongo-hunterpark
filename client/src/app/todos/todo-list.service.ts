@@ -15,23 +15,10 @@ export class TodoListService {
     }
 
     //the todos will be sorted if a parameter is given
-    getTodos(status?: string, owner?: string): Observable<Todo[]> {
+    getTodos(owner?: string): Observable<Todo[]> {
 
-        if (status != null || owner != null) {
+        if (owner != null) {
             this.todoUrl = this.baseUrl + '?';
-        }
-
-        //add status filter
-        if (status != null && status != "all") {
-            /*let statusBool: boolean;
-            if (status === 'complete') {
-                statusBool = true;
-            }
-            else if (status === 'incomplete') {
-                statusBool = false;
-            }*/
-
-            this.todoUrl += 'status=' + status + '&';
         }
 
         //add owner filter
