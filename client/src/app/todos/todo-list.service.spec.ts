@@ -81,7 +81,7 @@ describe('Todo list service: ', () => {
         // actually being performed.
         req.flush(testTodos);
     });
-
+    /*
     it('getTodos(todoBody) adds appropriate param string to called URL', () => {
         todoListService.getTodos('c').subscribe(
             todos => expect(todos).toEqual(mTodos)
@@ -91,7 +91,7 @@ describe('Todo list service: ', () => {
         expect(req.request.method).toEqual('GET');
         req.flush(mTodos);
     });
-    /*
+
     it('filterByBody(todoBody) deals appropriately with a URL that already had a body', () => {
         currentlyImpossibleToGenerateSearchTodoUrl = todoListService.baseUrl + '?body=c&something=k&';
         todoListService['todoUrl'] = currentlyImpossibleToGenerateSearchTodoUrl;

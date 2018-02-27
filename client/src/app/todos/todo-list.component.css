@@ -9,6 +9,7 @@
 }
 
 #list-title {
+    align-items: center;
     padding-right: 10px;
 }
 
@@ -34,13 +35,12 @@
 
 #todoStatus {
     padding: 5px;
-    border-style: solid;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: black;
-    margin-right: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
+}
+
+#allStatus{
+    color: blue;
 }
 
 #complete {
@@ -52,5 +52,10 @@
 }
 
 #statusDiv {
-    font-size: small;
+    font-size: medium;
+}
+
+mat-panel-description{
+    font-family: Impact;
+    font-size: large;
 }
