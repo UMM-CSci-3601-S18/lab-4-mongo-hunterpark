@@ -1,10 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div>
+    <ol>
+        <button id = "addNewTodo" mat-raised-button (click)="openDialog()">Add A New Todo</button>
+    </ol>
+</div>
 
-</body>
-</html>
+<div layout-gt-sm="row">
+    <div flex-gt-sm="80" flex-offset-gt-sm="10">
+        <mat-card>
+            <mat-card-title id="todo-list-title">Todos</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <mat-card>
+                    <mat-card-content>
+                <span id="ownerInput">
+                    <mat-form-field>
+                        <input matInput id="todoOwner" #input type="search" placeholder="Search for owner" [(ngModel)]="todoOwner" />
+                        <button mat-button id="ownerClearSearch" type="button" *ngIf="todoOwner" matSuffix mat-icon-button aria-label="clear" (click)="todoOwner='';loadService()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit</button>
+                </span>
+
+                        <br>
+                        <mat-form-field>
+                            <input matInput id="todoBody" #input placeholder="Filter by body"
+                                   [(ngModel)]="todoBody">
+                            <button mat-button id="bodyClearSearch" type="button" *ngIf="todoBody" matSuffix mat-icon-button aria-label="clear" (click)="todoBody=''">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <br>
+
+                        <span id="statusDiv">Filter by status:<br>
+              <mat-radio-group matInput id="todoStatus" #input [(ngModel)]="todoStatus" (change)="loadService()">
+                  <mat-radio-button id="allStatus" value="all">All</mat-radio-button>
+                  <mat-radio-button id="complete" value="true">Complete</mat-radio-button>
+                  <mat-radio-button id="incomplete" value="false">Incomplete</mat-radio-button>
+              </mat-radio-group>
+            </span>
+
+                        <br>
+                        <mat-select matInput [(ngModel)]="todoCategory" placeholder="Select a category">
+                            <mat-option>All</mat-option>
+                            <mat-option value="groceries">Groceries </mat-option>
+                            <mat-option value="homework">Homework</mat-option>
+                            <mat-option value="software design">Software Design</mat-option>
+                            <mat-option value="video games">Video Games</mat-option>
+                        </mat-select>
+                    </mat-card-content>
+                </mat-card>
+                <br>
+
+                <mat-accordion *ngIf="todos; else todosError">
+                    <mat-expansion-panel #elem [id]="todo._id['$oid']" class="todo" *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
+                        <mat-expansion-panel-header>
+
+                            <mat-panel-title><mat-icon id="check" *ngIf="todo.status">check_circle</mat-icon><mat-icon id="exed" *ngIf="!todo.status">highlight_off</mat-icon> &nbsp; {{todo.owner}}</mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <mat-panel-description>ID: {{todo._id['$oid']}}</mat-panel-description>
+                        <mat-panel-description *ngIf="todo.status">Complete</mat-panel-description>
+                        <mat-panel-description *ngIf="!todo.status">Incomplete</mat-panel-description>
+                        <mat-panel-description>{{todo.body}}</mat-panel-description>
+                        <mat-panel-description>Category: {{todo.category}}</mat-panel-description>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <ng-template #todosError>
+                    <mat-error>
+                        There was a problem loading the todo list. Possibly the server is down or perhaps there are network
+                        issues.
+                    </mat-error>
+                    <mat-error>
+                        Please wait a bit and try again or start the server.
+                    </mat-error>
+                </ng-template>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+#addTodo {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+#title input {
+    width: 16%;
+    min-width: 100px;
+}
+
+#list-title {
+    align-items: center;
+    padding-right: 10px;
+}
+
+#todo-list-title {
+    font-size: 50px;
+}
+
+.example-container {
+    flex-direction: row;
+}
+
+.example-container > * {
+    width: 100%;
+}
+
+#check {
+    color: green;
+}
+
+#exed {
+    color: red;
+}
+
+#todoStatus {
+    padding: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#allStatus{
+    color: blue;
+}
+
+#complete {
+    color: green;
+}
+
+#incomplete {
+    color: red;
+}
+
+#statusDiv {
+    font-size: medium;
+}
+
+mat-panel-description{
+    font-family: Impact;
+    font-size: large;
+}

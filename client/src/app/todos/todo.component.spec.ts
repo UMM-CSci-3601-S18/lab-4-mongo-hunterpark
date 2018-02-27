@@ -1,11 +1,11 @@
-import {ComponentFixture, TestBed, async} from "@angular/core/testing";
-import {Todo} from "./todo";
-import {TodoComponent} from "./todo.component";
-import {TodoListService} from "./todo-list.service";
-import {Observable} from "rxjs";
-//import { PipeModule } from "../../pipe.module";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {Todo} from './todo';
+import {TodoComponent} from './todo.component';
+import {TodoListService} from './todo-list.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
-describe("Todo component", () => {
+describe('Todo component', () => {
 
     let todoComponent: TodoComponent;
     let fixture: ComponentFixture<TodoComponent>;
@@ -19,34 +19,33 @@ describe("Todo component", () => {
         todoListServiceStub = {
             getTodoById: (todoId: string) => Observable.of([
                 {
-                    _id: "Hunter_id",
-                    owner: "Hunter",
+                    _id: 'hunter_id',
+                    owner: 'Hunter',
                     status: true,
-                    body: "In class",
-                    category: "CSCI 3601"
+                    body: 'likes sweatshorts',
+                    category: 'sweatshorsts'
                 },
                 {
-                    _id: "Sungjae_id",
-                    owner: "Sungjae",
+                    _id: 'sunjae_id',
+                    owner: 'Sunjae',
                     status: false,
-                    body: "Dungeon",
-                    category: "CSCI 3601"
+                    body: 'went to lab',
+                    category: 'homework'
                 },
                 {
-                    _id: "Nic_id",
-                    owner: "Nic",
+                    _id: 'nic_id',
+                    owner: 'Nic',
                     status: true,
-                    body: "In class",
-                    category: "IS 1091"
-                }
+                    body: 'teaches at school',
+                    category: 'morris'
+                },
             ].find(todo => todo._id === todoId))
         };
 
         TestBed.configureTestingModule({
-            //imports: [PipeModule],
             declarations: [TodoComponent],
             providers: [{provide: TodoListService, useValue: todoListServiceStub}]
-        })
+        });
     });
 
     beforeEach(async(() => {
@@ -56,15 +55,15 @@ describe("Todo component", () => {
         });
     }));
 
-    it("can retrieve Hunter by ID", () => {
-        todoComponent.setId("Hunter_id");
+    it('can retrieve Hunter by ID', () => {
+        todoComponent.setId('hunter_id');
         expect(todoComponent.todo).toBeDefined();
-        expect(todoComponent.todo.owner).toBe("Hunter");
-        expect(todoComponent.todo.category).toBe("CSCI 3601");
+        expect(todoComponent.todo.owner).toBe('Hunter');
+        expect(todoComponent.todo.body).toBe('likes sweatshorts');
     });
 
-    it("returns undefined for KK", () => {
-        todoComponent.setId("Kristan");
+    it('returns undefined for Jesus', () => {
+        todoComponent.setId('Jesus');
         expect(todoComponent.todo).not.toBeDefined();
     });
 

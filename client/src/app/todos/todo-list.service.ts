@@ -12,9 +12,35 @@ export class TodoListService {
     readonly baseUrl: string = environment.API_URL + 'todos';
     private todoUrl: string = this.baseUrl;
 
-    constructor(private http: HttpClient) {
+    constructor(private httpClient: HttpClient) {
     }
 
+    //the todos will be sorted if a parameter is given
+    getTodos(status?: string, owner?: string): Observable<Todo[]> {
+
+        if (status != null || owner != null) {
+            this.todoUrl = this.baseUrl + '?';
+        }
+
+        //add status filter
+        if (status != null && status != "all") {
+            /*let statusBool: boolean;
+            if (status === 'complete') {
+                statusBool = true;
+            }
+            else if (status === 'incomplete') {
+                statusBool = false;
+            }*/
+
+            this.todoUrl += 'status=' + status + '&';
+        }
+
+        //add owner filter
+        if (owner != null) {
+            this.todoUrl += 'owner=' + owner;
+        }
+
+        return this.httpClient.get<Todo[]>(this.todoUrl);
     getTodos(todoBody?: string): Observable<Todo[]> {
         this.filterByBody(todoBody);
         return this.http.get<Todo[]>(this.todoUrl);
@@ -74,6 +100,7 @@ export class TodoListService {
             end = this.todoUrl.indexOf('&', start);
         }
         this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end);
+        return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
     }
 
     addNewTodo(newTodo: Todo): Observable<{'$oid': string}> {
@@ -84,6 +111,6 @@ export class TodoListService {
         };
 
         // Send post request to add a new todo with the todo data as the body with specified headers.
-        return this.http.post<{'$oid': string}>(this.todoUrl + '/new', newTodo, httpOptions);
+        return this.httpClient.post<{'$oid': string}>(this.baseUrl + '/new', newTodo, httpOptions);
     }
 }
